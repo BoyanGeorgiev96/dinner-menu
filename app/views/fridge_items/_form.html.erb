@@ -1,0 +1,32 @@
+<%= form_with(model: fridge_item) do |form| %>
+  <% if fridge_item.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(fridge_item.errors.count, "error") %> prohibited this fridge_item from being saved:</h2>
+
+      <ul>
+        <% fridge_item.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :ingredient_id %>
+    <%= form.number_field :ingredient_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ingredient_quantity %>
+    <%= form.text_field :ingredient_quantity %>
+  </div>
+
+  <div class="field">
+    <%= form.label :measurement %>
+    <%= form.text_field :measurement %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

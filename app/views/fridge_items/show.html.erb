@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Ingredient:</strong>
+  <%= @fridge_item.ingredient_id %>
+</p>
+
+<p>
+  <strong>Ingredient quantity:</strong>
+  <%= @fridge_item.ingredient_quantity %>
+</p>
+
+<p>
+  <strong>Measurement:</strong>
+  <%= @fridge_item.measurement %>
+</p>
+
+<%= link_to 'Edit', edit_fridge_item_path(@fridge_item) %> |
+<%= link_to 'Back', fridge_items_path %>
