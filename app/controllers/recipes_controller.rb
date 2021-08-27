@@ -15,7 +15,13 @@ class RecipesController < ApplicationController
     recipe_ingredient_ids = recipe_ingredients.pluck(:ingredient_id)
     @recipe_ingredients = recipe_ingredients.group_by(&:ingredient_id)
     @ingredients = Ingredient.find(recipe_ingredient_ids)
-    @fridge_item_ids = FridgeItem.pluck(:ingredient_id)
+    fridge_items = FridgeItem.all.group_by(&:ingredient_id)
+    @fridge_item_ids = []
+    @ingredients.each do |ingredient|
+      if fridge_items[ingredient.id] && fridge_items[ingredient.id][0].ingredient_quantity>=@recipe_ingredients[ingredient.id][0].needed
+        @fridge_item_ids << ingredient.id
+      end
+    end
     @fridge_item = FridgeItem.new
   end
 

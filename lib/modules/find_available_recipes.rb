@@ -14,7 +14,6 @@ module FindAvailableRecipes
         next unless @grouped_fridge_items[ingredient_id][0].ingredient_quantity < ingredient[0].needed
 
         enough_quantity = false
-        puts "#{@grouped_fridge_items[ingredient_id][0].ingredient_quantity} quantity, #{ingredient[0].needed} needed"
       end
       @available_recipe_ids << recipe_id if enough_quantity
     end

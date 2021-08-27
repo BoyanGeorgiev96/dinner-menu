@@ -1,6 +1,8 @@
 const autocompleteSearch = function() {
     $( document ).ready(function() {
         if (document.getElementById('search-data')){
+            const measurements = $('#search-data').data('measurements');
+            console.log(measurements)
             const ingredients = {data: $('#search-data').data('ingredients'), list: {
                     match: {
                         enabled: true,
@@ -8,6 +10,10 @@ const autocompleteSearch = function() {
                             return !!element.toLowerCase().split(" ").filter((word) => word.indexOf(phrase.toLowerCase()) === 0).length;
                         }
 
+                    },
+                    onSelectItemEvent: function() {
+                        let ingredient = $("#fridge_item_textbox").getSelectedItemData();
+                        changeMeasurement(measurements[ingredient][0]['measurement'])
                     }
                 }};
             $('*[data-behavior="autocomplete"]').easyAutocomplete(ingredients);
@@ -20,12 +26,8 @@ const autocompleteSearch = function() {
 
 export { autocompleteSearch, addListenerToButton };
 
-function changeMeasurement(ingredient, ingredients) {
-    let result = ingredients.filter(obj => {
-        return obj.name === ingredient
-    })[0]
-    if (result){
-        const measurement = result.measurement;
+function changeMeasurement(measurement) {
+    if (measurement){
         $('#fridge_item_measurement').remove();
         $('#fridge_item_measurement_span').remove();
         if (measurement) {
@@ -52,8 +54,6 @@ function changeMeasurement(ingredient, ingredients) {
             }
         }
     }
-    else
-    console.log(result)
 }
 
 function createMeasurementDropdown(measurements){
