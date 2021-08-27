@@ -52,4 +52,5 @@ production:
   <<: *default
   database: DinnerMenu_production
   username: DinnerMenu
+  url: <%= ENV['DATABASE_URL'] %>
   password: <%= ENV['DINNERMENU_DATABASE_PASSWORD'] %>
