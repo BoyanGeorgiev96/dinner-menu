@@ -1,29 +1,19 @@
 import 'js-autocomplete/auto-complete.css';
-import autocomplete from 'js-autocomplete';
 
 const autocompleteSearch = function() {
     $( document ).ready(function() {
         if (document.getElementById('search-data')){
-            const ingredients = JSON.parse(document.getElementById('search-data').dataset.ingredients)
-            const searchInput = document.getElementById('fridge_item_ingredient_id');
+            const ingredients = {data: $('#search-data').data('ingredients'), list: {
+                    match: {
+                        enabled: true,
+                        method: function(element, phrase) {
+                            return !!element.toLowerCase().split(" ").filter((word) => word.indexOf(phrase.toLowerCase()) === 0).length;
+                        }
 
-            if (ingredients && searchInput) {
-                new autocomplete({
-                    selector: searchInput,
-                    minChars: 1,
-                    source: function(term, suggest){
-                        term = term.toLowerCase();
-                        const choices = ingredients.map(x => x.name);
-                        const matches = [];
-                        for (let i = 0; i < choices.length; i++)
-                            if (~choices[i].toLowerCase().indexOf(term)) matches.push(choices[i]);
-                        suggest(matches);
-                    },
-                    onSelect(event, ingredient, item){
-                        changeMeasurement(ingredient, ingredients);
                     }
-                },);
-            }
+                }};
+            $('*[data-behavior="autocomplete"]').easyAutocomplete(ingredients);
+
         }
 
     });

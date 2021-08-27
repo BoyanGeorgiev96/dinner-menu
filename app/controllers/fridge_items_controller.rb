@@ -6,6 +6,7 @@ class FridgeItemsController < ApplicationController
     @fridge_items = FridgeItem.all
     @fridge_item = FridgeItem.new
     @ingredients_data = Ingredient.all
+    @ingredient_names = @ingredients_data.pluck(:name)
     @ingredients = @ingredients_data.group_by(&:id)
     @available_recipes = find_available_recipes
   end

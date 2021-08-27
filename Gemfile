@@ -28,6 +28,8 @@ gem 'will_paginate', '~> 3.3.0'
 
 gem 'rexml', '~> 3.2', '>= 3.2.4'
 
+gem 'jquery-ui-rails'
+
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
