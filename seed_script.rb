@@ -9,8 +9,8 @@ File.readlines(file).each do |line|
 end
 seed_file = File.new('./db/seeds.rb', 'w')
 items = []
-recipe_id = 0
-ingredient_id = 0
+recipe_id = 4
+ingredient_id = 4
 json_array.each do |line|
   recipe_id += 1
   case recipe_id
@@ -53,7 +53,7 @@ json_array.each do |line|
     measurement = quantity_and_measurement.match('[^\d]+$')
     ingredient_index = items.find_index(item_name)
     if ingredient_index
-      ingredient_id = ingredient_index + 1
+      ingredient_id = ingredient_index + 4
     elsif item_name != ''
       if measurement
         if preposition
@@ -67,7 +67,7 @@ json_array.each do |line|
         seed_file.write("Ingredient.create!(name: \"#{item_name}\")\n")
       end
       items << item_name
-      ingredient_id = items.length
+      ingredient_id = items.length+4
     end
     quantity = String(quantity_and_measurement.match('(.+\d)') || quantity_and_measurement.match('\d'))
     slash_index = quantity.index('/')
