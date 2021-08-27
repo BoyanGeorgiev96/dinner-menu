@@ -1,13 +1,22 @@
 class RecipesController < ApplicationController
   before_action :set_recipe, only: %i[ show edit update destroy ]
+  include FindAvailableRecipes
 
   # GET /recipes or /recipes.json
   def index
-    @recipes = Recipe.all
+    @fridge_item_ids = FridgeItem.pluck(:ingredient_id)
+    @available_recipes = find_available_recipes
+    @recipes = Recipe.paginate(page: params[:page])
   end
 
   # GET /recipes/1 or /recipes/1.json
   def show
+    recipe_ingredients = RecipeIngredient.where(recipe_id: @recipe[:id])
+    recipe_ingredient_ids = recipe_ingredients.pluck(:ingredient_id)
+    @recipe_ingredients = recipe_ingredients.group_by(&:ingredient_id)
+    @ingredients = Ingredient.find(recipe_ingredient_ids)
+    @fridge_item_ids = FridgeItem.pluck(:ingredient_id)
+    @fridge_item = FridgeItem.new
   end
 
   # GET /recipes/new

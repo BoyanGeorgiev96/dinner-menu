@@ -2,11 +2,31 @@
 
 <h1>Recipes</h1>
 
+<h2>Available Recipes</h2>
+<table>
+  <thead>
+  <tr>
+    <th>Recipe Name</th>
+    <th><i class="fas fa-user-friends"></i></th>
+  </tr>
+  </thead>
+  <% @available_recipes.each do |recipe| %>
+
+    <tr>
+      <td><div class="check"></div> <%=recipe[:name] %></td>
+      <td><%=recipe.people_quantity %></td>
+    </tr>
+  <% end %>
+</table>
+
+<h2>All Recipes</h2>
+
+
 <table>
   <thead>
     <tr>
       <th>Name</th>
-      <th>People quantity</th>
+      <th><i class="fas fa-user-friends"></i></th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -23,6 +43,8 @@
     <% end %>
   </tbody>
 </table>
+
+<%= will_paginate %>
 
 <br>
 

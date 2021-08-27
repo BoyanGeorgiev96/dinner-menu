@@ -1,0 +1,2 @@
+$("#flash").html('<%= j render partial: "layouts/messages" %>');
+$('#quantity_<%= @fridge_item[:id]%>').html(<%= @fridge_item[:ingredient_quantity]%>);

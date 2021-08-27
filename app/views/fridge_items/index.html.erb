@@ -1,31 +1,53 @@
 <p id="notice"><%= notice %></p>
 
+<%= form_with(model: @fridge_item, id: "new-fridge-item", local: false) do |form| %>
+  <div id= "search-data" class="form-search search-data" data-ingredients="<%= @ingredients_data.to_json %>" >
+    <%= form.label :name %>
+    <%= form.text_field :ingredient_id, autocomplete: :off, class: "form-control search-input", placeholder: "Add an ingredient..." %>
+    <%= form.label :quantity%>
+    <%= form.number_field :ingredient_quantity, min: 0, step: :any %>
+    <%= form.submit :AddToFridge, class: "btn btn-success" %>
+  </div>
+<% end %>
+
 <h1>Fridge Items</h1>
 
 <table>
   <thead>
     <tr>
-      <th>Ingredient</th>
-      <th>Ingredient quantity</th>
-      <th>Measurement</th>
+      <th>Item</th>
+      <th></th>
+      <th>Change quantity</th>
       <th colspan="3"></th>
     </tr>
   </thead>
-
-  <tbody>
+  <%#TODO 500g de ingredient %>
+  <tbody id="fridge_items_table_body">
     <% @fridge_items.each do |fridge_item| %>
-      <tr>
-        <td><%= fridge_item.ingredient_id %></td>
-        <td><%= fridge_item.ingredient_quantity %></td>
-        <td><%= fridge_item.measurement %></td>
-        <td><%= link_to 'Show', fridge_item %></td>
-        <td><%= link_to 'Edit', edit_fridge_item_path(fridge_item) %></td>
-        <td><%= link_to 'Destroy', fridge_item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <tr id="fridge_item_<%=fridge_item.id %>">
+        <td id="quantity_<%= fridge_item.id%>"><%= fridge_item.ingredient_quantity %></td>
+        <%ingredient = @ingredients[fridge_item[:ingredient_id]][0] %>
+        <td><%= fridge_item.measurement %> <%= ingredient[:preposition]%><%= ingredient[:name].capitalize %></td>
+        <%= render 'add_quantity', fridge_item: fridge_item %>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<br>
+<h2>Available Recipes</h2>
 
-<%= link_to 'New Fridge Item', new_fridge_item_path %>
+<table>
+  <thead>
+  <tr>
+    <th>Recipe Name</th>
+    <th><i class="fas fa-user-friends"></i></th>
+  </tr>
+  </thead>
+<% @available_recipes.each do |recipe| %>
+
+    <tr>
+      <td><%=recipe[:name] %></td>
+      <td><%=recipe.people_quantity %></td>
+    </tr>
+<% end %>
+</table>

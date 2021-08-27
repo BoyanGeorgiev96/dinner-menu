@@ -11,6 +11,13 @@
   </head>
 
   <body>
-    <%= yield %>
+  <%= render "layouts/header" %>
+  <div id="flash">
+    <% if notice.present? %>
+      <%= render partial: "layouts/messages" %>
+    <% end %>
+  </div>
+  <%= yield %>
+  <%= render "layouts/footer" %>
   </body>
 </html>

@@ -1,3 +1,27 @@
 // Place all the styles related to the FridgeItems controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+:root {
+  --borderWidth: 3.5px;
+  --height: 12px;
+  --width: 6px;
+  --borderColor: #78b13f;
+}
+
+body {
+  padding: 20px;
+  text-align: center;
+}
+
+.check {
+  display: inline-block;
+  transform: rotate(45deg);
+  height: var(--height);
+  width: var(--width);
+  border-bottom: var(--borderWidth) solid var(--borderColor);
+  border-right: var(--borderWidth) solid var(--borderColor);
+}
+
+#recipe_name{
+  text-align: center;
+}

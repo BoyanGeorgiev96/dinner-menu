@@ -1,0 +1,12 @@
+<%= form_with(model: fridge_item, id: "update_quantity_#{fridge_item.id}", local: false) do |form| %>
+  <td><%= form.number_field :ingredient_quantity, id: "ingredient_quantity_#{fridge_item.id}", min: 0.01, step: :any,value: "", placeholder: 0, required: true %></td>
+  <td><%= form.button type: "submit", class: "button plus-button", name: "plus", id: fridge_item.id do %>
+      <i class="fas fa-plus" aria-hidden="true"></i>
+    <% end %></td>
+  <td><%= form.button type: "submit", class: "button minus-button", name: "minus", id: fridge_item.id do %>
+      <i class="fas fa-minus" aria-hidden="true"></i>
+    <% end %></td>
+<% end %>
+<td><%= button_to fridge_item, action: "delete", method: :delete, remote: true do %>
+    <i class="fas fa-trash"></i>
+  <% end %></td>

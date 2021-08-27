@@ -1,0 +1,21 @@
+$("#flash").html('<%= j render partial: "layouts/messages" %>');
+if (!<%= @on_fridge_items_page %>) {
+    if (!$('#check_<%=@ingredient.id %>').length>0){
+        console.log("check doesn't exist")
+        $('#ingredient_<%=@ingredient.id %>').prepend('<div class="check" id="check_<%=@ingredient.id %>"></div>');
+    }
+}
+else {
+    console.log("on fridge items page")
+    if (!<%= @item_updated %>) {
+        $('#fridge_items_table_body tr:last').after('<tr id="fridge_item_<%= @fridge_item.id %>">' +
+            '<td><%= @fridge_item[:ingredient_quantity]%></td>' +
+            '<td><%= @fridge_item[:measurement]%> <%= @ingredient[:preposition] %> <%= @ingredient[:name].capitalize %></td>' +
+            '</tr>');
+        document.getElementById("fridge_item_<%=@fridge_item.id %>").insertAdjacentHTML("beforeend", "<%= j render partial: 'fridge_items/add_quantity', locals: {fridge_item: @fridge_item} %>");
+
+
+    } else {
+        $('#quantity_<%= @fridge_item[:id]%>').html(<%= @fridge_item[:ingredient_quantity]%>);
+    }
+}
