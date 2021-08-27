@@ -1,5 +1,3 @@
-import 'js-autocomplete/auto-complete.css';
-
 const autocompleteSearch = function() {
     $( document ).ready(function() {
         if (document.getElementById('search-data')){
