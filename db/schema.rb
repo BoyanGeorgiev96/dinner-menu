@@ -12,26 +12,29 @@
 
 ActiveRecord::Schema.define(version: 2021_08_27_090752) do
 
-  create_table "fridge_items", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "fridge_items", force: :cascade do |t|
     t.integer "ingredient_id"
     t.float "ingredient_quantity"
     t.string "measurement"
   end
 
-  create_table "ingredients", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "ingredients", force: :cascade do |t|
     t.text "name"
     t.string "measurement"
     t.string "preposition"
   end
 
-  create_table "recipe_ingredients", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "recipe_ingredients", force: :cascade do |t|
     t.integer "recipe_id"
     t.integer "ingredient_id"
     t.float "needed"
     t.string "measurement"
   end
 
-  create_table "recipes", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "recipes", force: :cascade do |t|
     t.string "name"
     t.integer "people_quantity"
   end
