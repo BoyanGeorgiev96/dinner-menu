@@ -26,16 +26,10 @@ class FridgeItemsController < ApplicationController
 
   # POST /fridge_items or /fridge_items.json
   def create
-    @on_fridge_items_page = !params[:on_recipe_page]
-    @enough_ingredients = false
     ingredient_names = fridge_item_params[:ingredient_id].split(',').map(&:strip)
     @new_ingredients = {}
     ingredient_names.each do |ingredient_name|
-      @ingredient = if @on_fridge_items_page
-                      Ingredient.find_by_name(ingredient_name)
-                    else
-                      Ingredient.find(params[:ingredient_id])
-                    end
+      @ingredient = Ingredient.where("name ILIKE ?", "%#{ingredient_name}%")[0]
       @item_exists = false
       if @ingredient
         @fridge_item = FridgeItem.find_by ingredient_id: @ingredient.id
