@@ -47,8 +47,9 @@ class FridgeItemsController < ApplicationController
           respond_to do |format|
             if @fridge_item.save
               @new_ingredients[@ingredient.id] = [@fridge_item, @ingredient.name]
+              puts "length: ", ingredient_names.length()
               format.html { redirect_to @fridge_item, notice: 'Fridge item was successfully created.' }
-              format.js { flash.now[:notice] = "Fridge items successfully added." }
+              format.js { flash.now[:notice] = ingredient_names.length()>1 ? "Fridge items successfully added." : "Fridge item successfully added." }
               format.json { render :show, status: :created, location: @fridge_item }
             else
               format.html { render :new, status: :unprocessable_entity }
