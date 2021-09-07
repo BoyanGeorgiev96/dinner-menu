@@ -1,0 +1,33 @@
+/* line 4, app/assets/stylesheets/fridge_items.scss */
+:root {
+  --borderWidth: 3.5px;
+  --height: 12px;
+  --width: 6px;
+  --borderColor: #78b13f;
+}
+
+/* line 11, app/assets/stylesheets/fridge_items.scss */
+body {
+  padding: 20px;
+  text-align: center;
+}
+
+/* line 16, app/assets/stylesheets/fridge_items.scss */
+.check {
+  display: inline-block;
+  transform: rotate(45deg);
+  height: var(--height);
+  width: var(--width);
+  border-bottom: var(--borderWidth) solid var(--borderColor);
+  border-right: var(--borderWidth) solid var(--borderColor);
+}
+
+/* line 25, app/assets/stylesheets/fridge_items.scss */
+#recipe_name {
+  text-align: center;
+}
+
+/* line 29, app/assets/stylesheets/fridge_items.scss */
+#fridge_item_textbox {
+  width: 95%;
+}

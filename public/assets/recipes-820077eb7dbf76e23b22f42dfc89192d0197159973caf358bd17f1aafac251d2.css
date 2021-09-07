@@ -1,0 +1,45 @@
+/* line 5, app/assets/stylesheets/recipes.scss */
+.pagination {
+  margin: 1.5em 0;
+  background: #f1f1f1;
+  border: 1px solid #e5e5e5;
+  text-align: center;
+  padding: 1em;
+  cursor: default;
+  justify-content: center;
+}
+
+/* line 15, app/assets/stylesheets/recipes.scss */
+.pagination .disabled {
+  color: #aaaaaa;
+}
+
+/* line 19, app/assets/stylesheets/recipes.scss */
+.pagination a, .pagination span {
+  padding: 0.5em 0.75em;
+}
+
+/* line 23, app/assets/stylesheets/recipes.scss */
+.pagination a {
+  text-decoration: none;
+  color: black !important;
+}
+
+/* line 28, app/assets/stylesheets/recipes.scss */
+.pagination .current {
+  font-style: normal;
+  font-weight: bold;
+  background-color: #bebebe;
+  display: inline-block;
+  width: 1.4em;
+  height: 1.4em;
+  line-height: 1.5;
+  border-radius: 1em;
+  text-shadow: white 1px 1px 1px;
+}
+
+/* line 42, app/assets/stylesheets/recipes.scss */
+.pagination a:hover, .pagination a:focus {
+  text-decoration: underline;
+  background: #f1f1f1;
+}
