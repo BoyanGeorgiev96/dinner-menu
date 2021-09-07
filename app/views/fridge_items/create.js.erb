@@ -1,30 +1,9 @@
 $("#flash").html('<%= j render partial: "layouts/messages" %>');
-if (!<%= @on_fridge_items_page %>) {
-    if (!$('#check_<%=@ingredient.id %>').length>0 && <%=@enough_ingredients%>){
-        $('#ingredient_<%=@ingredient.id %>').prepend('<div class="check" id="check_<%=@ingredient.id %>"></div>');
-    }
-}
-else {
-    if (!<%= @item_updated %>) {
-        let lastTr = $('#fridge_items_table_body tr:last');
-        if (lastTr.length>0) {
-            lastTr.after('<tr id="fridge_item_<%= @fridge_item.id %>">' +
-            '<td><%= @fridge_item[:ingredient_quantity]%></td>' +
-            '<td><%= @fridge_item[:measurement]%> <%= @ingredient[:preposition] %> <%= @ingredient[:name].capitalize %></td>' +
-            '</tr>');
-        }
-        else {
-            $('#fridge_items_table_body').append('<tr id="fridge_item_<%= @fridge_item.id %>">' +
-            '<td><%= @fridge_item[:ingredient_quantity]%></td>' +
-            '<td><%= @fridge_item[:measurement]%> <%= @ingredient[:preposition] %> <%= @ingredient[:name].capitalize %></td>' +
-            '</tr>'
-                );
-        }
-        
-        document.getElementById("fridge_item_<%=@fridge_item.id %>").insertAdjacentHTML("beforeend", "<%= j render partial: 'fridge_items/add_quantity', locals: {fridge_item: @fridge_item} %>");
-
-
-    } else {
-        $('#quantity_<%= @fridge_item[:id]%>').html(<%= @fridge_item[:ingredient_quantity]%>);
-    }
+if (!<%= @item_exists %>) {
+    <% @new_ingredients.each do |id, value|%>
+        $('#fridge_items_table_body').prepend('<tr id="fridge_item_<%=value[0].id%>">' +
+        '<td><%= value[1].capitalize%></td>' +
+        '</tr>');
+        document.getElementById("fridge_item_<%= value[0].id%>").insertAdjacentHTML("beforeend", "<%= j render partial: 'fridge_items/add_quantity', locals: {fridge_item: value[0]} %>");
+    <% end %>
 }

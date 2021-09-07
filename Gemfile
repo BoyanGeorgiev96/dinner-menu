@@ -30,6 +30,8 @@ gem 'rexml', '~> 3.2', '>= 3.2.4'
 
 gem 'jquery-ui-rails'
 
+gem 'sql_queries_count'
+
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 

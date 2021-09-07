@@ -20,7 +20,3 @@ ActiveStorage.start()
 //= require bootstrap
 //= require jquery-ui
 require("easy-autocomplete")
-
-
-autocompleteSearch();
-addListenerToButton();

@@ -1,22 +1,29 @@
 # Find all available recipes with the current fridge items
 module FindAvailableRecipes
   def find_available_recipes
-    @fridge_items = FridgeItem.all
-    @fridge_item_ids = @fridge_items.pluck(:ingredient_id)
-    @grouped_fridge_items = @fridge_items.group_by(&:ingredient_id)
-    @available_recipe_ids = []
-    @recipe_ingredients = RecipeIngredient.where(recipe_id: RecipeIngredient.where(ingredient_id: FridgeItem.pluck(:ingredient_id)).pluck(:recipe_id)).group_by(&:recipe_id)
-    @recipe_ingredients.each do |recipe_id, ingredients|
-      enough_quantity = true
-      next unless (ingredients.pluck(:ingredient_id) - @fridge_item_ids).empty?
-
-      ingredients.group_by(&:ingredient_id).each do |ingredient_id, ingredient|
-        next unless @grouped_fridge_items[ingredient_id][0].ingredient_quantity < ingredient[0].needed
-
-        enough_quantity = false
-      end
-      @available_recipe_ids << recipe_id if enough_quantity
+    fridge_items = FridgeItem.all
+    @ingredient_ids = fridge_items.pluck(:ingredient_id)
+    @ingredients_like_ids = []
+    @ingredient_ids.each do |id|
+      @ingredients_like_ids << find_ingredients_like(id)
     end
+    @ingredients_like_ids.flatten!
+
+    @available_ingredients = RecipeIngredient.where(ingredient_id: @ingredients_like_ids)
+    @recipe_ids = @available_ingredients.pluck(:recipe_id).uniq
+    @available_recipe_ids = []
+
+    @recipe_ids.each do |recipe_id|
+      recipe_ingredients = RecipeIngredient.where(recipe_id: recipe_id).pluck(:ingredient_id)
+      next unless (recipe_ingredients - @ingredients_like_ids).empty?
+        @available_recipe_ids << recipe_id
+    end
+    
     Recipe.find(@available_recipe_ids)
   end
+
+  def find_ingredients_like(id)
+    Ingredient.where("name ILIKE ?", "%#{Ingredient.find(id).name}%").pluck(:id)
+  end
 end
+#TODO: change fridge item - remove ingredient quantity, add cookable to recipe

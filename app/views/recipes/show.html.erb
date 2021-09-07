@@ -27,17 +27,6 @@
           <%recipe_ingredient = @recipe_ingredients[ingredient.id][0] %>
           <%= recipe_ingredient[:needed]%> <%= recipe_ingredient[:measurement]%> <%= ingredient[:preposition] %><%= ingredient[:name] %>
         </td>
-
-        <%= form_with(model: @fridge_item, id: "update-quantity_#{ingredient.id}", local: false) do |form| %>
-          <td><%= form.number_field :ingredient_quantity, min: 0.01, step: :any, placeholder: 0, required: true %></td>
-          <%= hidden_field_tag 'on_recipe_page', true %>
-          <%= hidden_field_tag :ingredient_id, ingredient.id %>
-          <%= hidden_field_tag :measurement, ingredient[:measurement] %>
-          <%= hidden_field_tag :recipe_id, @recipe.id %>
-          <td><%= form.button type: 'submit', class: "button my-button", name: "plus" do %>
-              Add quantity
-            <% end %></td>
-        <% end %>
       </tr>
     <% end %>
     </tbody>
@@ -46,3 +35,4 @@
 </div>
 <%= link_to 'Edit', edit_recipe_path(@recipe) %> |
 <%= link_to 'Back', recipes_path %>
+<%= console %>

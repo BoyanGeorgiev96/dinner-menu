@@ -14,11 +14,16 @@ class RecipesController < ApplicationController
     recipe_ingredients = RecipeIngredient.where(recipe_id: @recipe[:id])
     recipe_ingredient_ids = recipe_ingredients.pluck(:ingredient_id)
     @recipe_ingredients = recipe_ingredients.group_by(&:ingredient_id)
+    @ingredients_like_ids = []
+    fridge_items = FridgeItem.all
+    fridge_items.each do |fi|
+      @ingredients_like_ids << find_ingredients_like(fi.ingredient_id)
+    end
+    @ingredients_like_ids.flatten!
     @ingredients = Ingredient.find(recipe_ingredient_ids)
-    fridge_items = FridgeItem.all.group_by(&:ingredient_id)
     @fridge_item_ids = []
     @ingredients.each do |ingredient|
-      if fridge_items[ingredient.id] && fridge_items[ingredient.id][0].ingredient_quantity>=@recipe_ingredients[ingredient.id][0].needed
+      if @ingredients_like_ids.include?(ingredient.id)
         @fridge_item_ids << ingredient.id
       end
     end
